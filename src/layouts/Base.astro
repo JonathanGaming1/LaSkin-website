@@ -7,6 +7,7 @@ import { absoluteUrl, alternates, withBase, INDEXABLE, IS_PREVIEW, ORIGIN, type 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyBar from '../components/StickyBar.astro';
+import A11yMenu from '../components/A11yMenu.astro';
 import heeboHe from '../assets/fonts/heebo-hebrew-200.woff2';
 import assistantHe from '../assets/fonts/assistant-hebrew-400.woff2';
 import heeboLatin from '../assets/fonts/heebo-latin-200.woff2';
@@ -44,7 +45,7 @@ const business = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: SITE.hours.weekdays.opens, closes: SITE.hours.weekdays.closes },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday'], opens: SITE.hours.friday.opens, closes: SITE.hours.friday.closes },
   ],
-  sameAs: [SITE.facebook],
+  sameAs: [SITE.facebook, SITE.instagram],
   inLanguage: lang,
 };
 const ld = JSON.stringify(jsonLd.length ? [business, ...jsonLd] : business);
@@ -84,6 +85,7 @@ const csp = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 's
   </head>
   <body data-lang={lang} data-route={route}>
     <Header lang={lang} route={route} />
+    <A11yMenu lang={lang} />
     <main id="main" tabindex="-1">
       <slot />
     </main>

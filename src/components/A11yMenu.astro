@@ -1,0 +1,40 @@
+---
+/**
+ * Built-in accessibility menu: display adjustments applied as classes on <html>
+ * (no inline styles, no third-party widget) and remembered in localStorage on the visitor's device.
+ */
+import { t, type Lang } from '../i18n';
+import { href } from '../lib/routes';
+import Icons from './Icons.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const m = d.a11yMenu;
+const toggles = [
+  { key: 'contrast', label: m.contrast },
+  { key: 'links', label: m.links },
+  { key: 'font', label: m.font },
+  { key: 'motion', label: m.motion },
+] as const;
+---
+<aside class="a11y" aria-label={m.title}>
+  <button type="button" class="a11y__btn" aria-expanded="false" aria-controls="a11y-panel" aria-label={m.open} data-label-open={m.open} data-label-close={m.close}>
+    <Icons name="a11y" size={26} />
+  </button>
+  <div id="a11y-panel" class="a11y__panel" role="group" aria-labelledby="a11y-title" hidden>
+    <p id="a11y-title" class="a11y__title">{m.title}</p>
+    <div class="a11y__size">
+      <button type="button" class="a11y__opt a11y__opt--size" data-a11y-size="-1" aria-label={m.smaller}><span aria-hidden="true">A−</span></button>
+      <p class="a11y__level" role="status" aria-live="polite"><span>{m.textSize}</span> <span class="num" data-a11y-level>100%</span></p>
+      <button type="button" class="a11y__opt a11y__opt--size" data-a11y-size="1" aria-label={m.bigger}><span aria-hidden="true">A+</span></button>
+    </div>
+    {toggles.map((o) => (
+      <button type="button" class="a11y__opt" data-a11y-toggle={o.key} aria-pressed="false">
+        <span>{o.label}</span><span class="a11y__check" aria-hidden="true">✓</span>
+      </button>
+    ))}
+    <button type="button" class="a11y__opt a11y__opt--reset" data-a11y-reset>{m.reset}</button>
+    <a class="a11y__statement" href={href(lang, 'accessibility')}>{d.legal.a11yTab}</a>
+  </div>
+</aside>

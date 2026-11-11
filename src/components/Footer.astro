@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { t, type Lang } from '../i18n';
 import { href, type RouteKey } from '../lib/routes';
 import { SITE } from '../data/site';
+import Icons from './Icons.astro';
 import logo from '../assets/img/logo-mark.png';
 
 interface Props { lang: Lang; route: RouteKey }
@@ -18,7 +19,10 @@ const year = new Date().getFullYear();
       <div>
         <Image src={logo} alt={dict.alt.logo} width={112} height={112} class="footer__mark" loading="lazy" />
         <p class="footer__tagline">{dict.footer.tagline}</p>
-        <a class="footer__social" href={SITE.facebook} target="_blank" rel="noopener">Facebook<span class="sr-only"> — {dict.footer.facebook}</span></a>
+        <div class="footer__socials">
+          <a class="footer__social footer__social--ig" href={SITE.instagram} target="_blank" rel="noopener" data-track="instagram_click" data-placement="footer"><Icons name="instagram" size={18} />Instagram<span class="sr-only"> — {dict.footer.instagram}</span></a>
+          <a class="footer__social" href={SITE.facebook} target="_blank" rel="noopener">Facebook<span class="sr-only"> — {dict.footer.facebook}</span></a>
+        </div>
       </div>
       <nav class="footer__nav" aria-label={dict.a11y.footerNav}>
         <p class="footer__k">{dict.footer.navK}</p>

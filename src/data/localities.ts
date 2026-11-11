@@ -28,6 +28,7 @@ export const LOCALITIES: Locality[] = [
   { he: 'גיזו', en: 'Gizo', ar: 'جيزو' },
   { he: 'דולב', en: 'Dolev', ar: 'دوليف' },
   { he: 'הראל', en: 'Harel', ar: 'هرئيل' },
+  { he: 'הר אדר', en: 'Har Adar', ar: 'هار أدار' },
   { he: 'הר גילה', en: 'Har Gilo', ar: 'هار جيلو' },
   { he: 'חרשה', en: 'Harasha', ar: 'حرشا' },
   { he: 'חשמונאים', en: 'Hashmonaim', ar: 'حشمونائيم' },
@@ -88,6 +89,6 @@ export const LOCALITIES: Locality[] = [
 ];
 
 /** Localities highlighted in the home-page strip (from the design). */
-export const FEATURED = ['Mevaseret Zion', 'Abu Ghosh', 'Jerusalem', 'Motza Illit', 'Neve Ilan', 'Kiryat Anavim', 'Beit Zayit', 'Shoresh'];
+export const FEATURED = ['Har Adar', 'Mevaseret Zion', 'Abu Ghosh', 'Jerusalem', 'Motza Illit', 'Neve Ilan', 'Kiryat Anavim', 'Beit Zayit', 'Shoresh'];
 
 export const localityName = (l: Locality, lang: Lang) => l[lang];

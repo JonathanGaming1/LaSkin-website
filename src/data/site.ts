@@ -12,6 +12,8 @@ export const SITE = {
     friday: { opens: '08:30', closes: '14:00' },
   },
   facebook: 'https://www.facebook.com/Laskin.amc',
+  instagram: 'https://www.instagram.com/la_skin_5',
+  instagramHandle: '@la_skin_5',
   /** Public map/navigation links are built from the address only (no invented place IDs). */
   mapsQuery: 'מבוא החורש 10, הר אדר',
   productionOrigin: 'https://laskin.co.il',

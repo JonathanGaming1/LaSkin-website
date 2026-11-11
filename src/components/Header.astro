@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { LANGS, t, type Lang } from '../i18n';
 import { href, type RouteKey } from '../lib/routes';
-import { WA_MESSAGE, whatsappUrl } from '../data/site';
+import { SITE, WA_MESSAGE, whatsappUrl } from '../data/site';
 import Icons from './Icons.astro';
 import logo from '../assets/img/logo-mark.png';
 
@@ -45,6 +45,9 @@ const langLabel: Record<Lang, string> = { he: 'HE', ar: 'AR', en: 'EN' };
           >{langLabel[code]}</a>
         ))}
       </nav>
+      <a class="header__ig" href={SITE.instagram} target="_blank" rel="noopener" aria-label={dict.footer.instagram} data-track="instagram_click" data-placement="header">
+        <Icons name="instagram" size={22} />
+      </a>
       <a class="btn btn--wa btn--sm header__cta" href={wa} target="_blank" rel="noopener" data-wa data-track="whatsapp_click" data-placement="header">
         <Icons name="wa" size={17} /><span>{dict.cta.short}</span>
       </a>
@@ -55,5 +58,8 @@ const langLabel: Record<Lang, string> = { he: 'HE', ar: 'AR', en: 'EN' };
   </div>
   <nav id="mobile-menu" class="mobile-menu" aria-label={dict.a11y.primaryNav} hidden>
     {items.map((it) => <a href={it.href} data-track="nav_cta" data-target={it.track}>{it.label}</a>)}
+    <a class="mobile-menu__ig" href={SITE.instagram} target="_blank" rel="noopener" data-track="instagram_click" data-placement="mobile_menu">
+      <Icons name="instagram" size={20} /><span>{dict.contact.instaCta}</span>
+    </a>
   </nav>
 </header>

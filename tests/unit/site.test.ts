@@ -41,7 +41,7 @@ describe('content completeness', () => {
     }
   });
   it('the owner-supplied locality list is complete, translated, and has one dedicated page', () => {
-    expect(LOCALITIES).toHaveLength(77);
+    expect(LOCALITIES).toHaveLength(78);
     for (const l of LOCALITIES) { expect(l.he).toBeTruthy(); expect(l.en).toBeTruthy(); expect(l.ar).toBeTruthy(); }
     expect(LOCALITIES.filter((l) => l.page).map((l) => l.page)).toEqual(['mevaseret-zion']);
   });

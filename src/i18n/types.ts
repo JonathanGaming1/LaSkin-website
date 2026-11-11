@@ -22,6 +22,11 @@ export interface Dict {
     whatsapp: string; call: string; waStrip: string; waPrev: string; waNext: string;
     stars: string; required: string; formName: string; quickContact: string;
   };
+  /** Built-in accessibility menu (display adjustments stored on the visitor's device only). */
+  a11yMenu: {
+    open: string; close: string; title: string; bigger: string; smaller: string; textSize: string;
+    contrast: string; links: string; font: string; motion: string; reset: string;
+  };
   alt: {
     logo: string; hero: string; lobby: string; device: string; goggles: string; chairs: string;
     reception: string; logoWall: string; details: string; treatment: string; entrance: string;
@@ -36,7 +41,7 @@ export interface Dict {
   };
   pillars: { h: string; sub: string; sub2: string; items: { t: string; b: string }[] };
   welcome: { n: string; h: string };
-  tech: { n: string; h: string; p1: string; studiesLink: string };
+  tech: { n: string; h: string; painless: string; p1: string; studiesLink: string };
   clinic: { n: string; h: string; p: string };
   midcta: { h: string; p: string };
   care: { beforeK: string; beforeH: string; afterK: string; afterH: string; before: string[]; after: string[] };
@@ -44,7 +49,7 @@ export interface Dict {
   reviews: { n: string; h: string; src: string; waH: string; items: { when: string; title: string; body: string }[] };
   contact: {
     n: string; h: string; addrK: string; addr: string; phoneK: string; mailK: string; hoursK: string;
-    d1: string; d2: string; mapH: string; mapP: string; mapGoogle: string; mapWaze: string;
+    d1: string; d2: string; instaK: string; instaCta: string; mapH: string; mapP: string; mapGoogle: string; mapWaze: string;
   };
   areas: { h: string; all: string; crumb: string; indexH: string; indexP: string; note: string; onlyPage: string };
   loc: {
@@ -57,7 +62,7 @@ export interface Dict {
     ctaH: string; ctaP: string; ctaBtn: string; sourcesH: string; sourceLink: string; note: string;
   };
   legal: { privacyTab: string; a11yTab: string; updated: string; privacy: Block[]; a11y: Block[] };
-  footer: { tagline: string; navK: string; infoK: string; disclaimer: string; facebook: string };
+  footer: { tagline: string; navK: string; infoK: string; disclaimer: string; facebook: string; instagram: string };
   nav: [string, string, string, string, string];
   notFound: { h: string; p: string; home: string };
 }

@@ -2,6 +2,7 @@
  * La Skin — client behaviour (no framework, ~4 KB).
  *  - analytics abstraction (window.dataLayer, no PII, no message content)
  *  - WhatsApp deep links: desktop browsers go straight to web.whatsapp.com
+ *  - accessibility menu (text size, contrast, link highlight, readable font, stop animations)
  *  - mobile menu (aria-expanded, Escape, focus management)
  *  - FAQ accordion (aria-expanded/aria-controls, arrow-key navigation)
  *  - screenshot strip prev/next
@@ -56,6 +57,65 @@ if (!isMobile) {
     } catch { /* keep original */ }
   });
 }
+
+/* ---------- Accessibility menu (classes on <html>; the choice is kept in localStorage on this device only) ---------- */
+(function a11yMenu() {
+  const root = document.documentElement;
+  const KEY = 'laskin-a11y';
+  const SIZES = [100, 110, 120, 135];
+  const TOGGLES = ['contrast', 'links', 'font', 'motion'] as const;
+  type State = { size: number } & Record<(typeof TOGGLES)[number], boolean>;
+  const blank = (): State => ({ size: 0, contrast: false, links: false, font: false, motion: false });
+  let state = blank();
+  try { state = { ...state, ...(JSON.parse(localStorage.getItem(KEY) || '{}') as Partial<State>) }; } catch { /* storage unavailable */ }
+  if (!(state.size >= 0 && state.size < SIZES.length)) state.size = 0;
+
+  const btn = document.querySelector<HTMLButtonElement>('.a11y__btn');
+  const panel = document.getElementById('a11y-panel');
+  const level = panel?.querySelector<HTMLElement>('[data-a11y-level]');
+  const apply = () => {
+    SIZES.forEach((_, i) => { if (i) root.classList.toggle(`a11y-fs-${i}`, state.size === i); });
+    TOGGLES.forEach((k) => {
+      root.classList.toggle(`a11y-${k}`, state[k]);
+      panel?.querySelector(`[data-a11y-toggle="${k}"]`)?.setAttribute('aria-pressed', String(state[k]));
+    });
+    if (level) level.textContent = `${SIZES[state.size]}%`;
+    panel?.querySelector<HTMLButtonElement>('[data-a11y-size="-1"]')?.toggleAttribute('disabled', state.size === 0);
+    panel?.querySelector<HTMLButtonElement>('[data-a11y-size="1"]')?.toggleAttribute('disabled', state.size === SIZES.length - 1);
+  };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* in-memory only */ } };
+  apply();
+  if (!btn || !panel) return;
+
+  const setOpen = (open: boolean) => {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', (open ? btn.dataset.labelClose : btn.dataset.labelOpen) ?? '');
+    panel.hidden = !open;
+  };
+  const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
+  btn.addEventListener('click', () => setOpen(!isOpen()));
+  panel.addEventListener('click', (e) => {
+    const el = (e.target as Element).closest<HTMLElement>('[data-a11y-size], [data-a11y-toggle], [data-a11y-reset]');
+    if (!el) return;
+    if (el.dataset.a11ySize) {
+      state.size = Math.min(SIZES.length - 1, Math.max(0, state.size + Number(el.dataset.a11ySize)));
+      apply();
+      // A button that just became disabled drops focus; keep focus inside the panel.
+      if ((el as HTMLButtonElement).disabled) panel.querySelector<HTMLElement>('[data-a11y-size]:not([disabled])')?.focus();
+    } else if (el.dataset.a11yToggle) {
+      const k = el.dataset.a11yToggle as (typeof TOGGLES)[number];
+      state[k] = !state[k];
+      apply();
+    } else {
+      state = blank();
+      apply();
+    }
+    save();
+    track('a11y_menu', { option: el.dataset.a11yToggle ?? (el.dataset.a11ySize ? 'text_size' : 'reset') });
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { setOpen(false); btn.focus(); } });
+  document.addEventListener('click', (e) => { if (isOpen() && !(e.target as Element).closest('.a11y')) setOpen(false); });
+})();
 
 /* ---------- Mobile menu ---------- */
 const burger = document.querySelector<HTMLButtonElement>('.burger');

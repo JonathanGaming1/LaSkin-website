@@ -82,8 +82,8 @@ const waPlain = whatsappUrl(WA_MESSAGE[lang]);
             </div>
             <div class="field">
               <label for="lead-phone">{d.lead.phoneLabel} <span aria-hidden="true">*</span><span class="sr-only">({d.a11y.required})</span></label>
-              <p id="lead-phone-hint" class="field__hint">{d.lead.phoneHint}</p>
               <input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="lead-phone-hint lead-phone-err" />
+              <p id="lead-phone-hint" class="field__hint">{d.lead.phoneHint}</p>
               <p id="lead-phone-err" class="field__err" role="alert"></p>
             </div>
           </div>
@@ -180,6 +180,7 @@ const waPlain = whatsappUrl(WA_MESSAGE[lang]);
       <div class="tech__text">
         <p class="eyebrow eyebrow--gold">{d.tech.n}</p>
         <h2 id="tech-h" class="tech__h">{d.tech.h}</h2>
+        <p class="tech__painless">{d.tech.painless}</p>
         <p class="tech__p">{d.tech.p1}</p>
         <p class="tech__p">{d.pillars.sub2}</p>
         <a class="link-underline link-underline--light tech__link" href={href(lang, 'studies')}>{d.tech.studiesLink} <Icons name="arrow" class="arrow" size={16} /></a>
@@ -282,6 +283,12 @@ const waPlain = whatsappUrl(WA_MESSAGE[lang]);
           <div>
             <p class="contact__k">{d.contact.mailK}</p>
             <a class="contact__link num" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </div>
+          <div>
+            <p class="contact__k">{d.contact.instaK}</p>
+            <a class="contact__ig" href={SITE.instagram} target="_blank" rel="noopener" data-track="instagram_click" data-placement="contact_card">
+              <Icons name="instagram" size={22} /><span>{d.contact.instaCta}</span><span class="num contact__ig-handle">{SITE.instagramHandle}</span>
+            </a>
           </div>
           <div>
             <p class="contact__k">{d.contact.hoursK}</p>
